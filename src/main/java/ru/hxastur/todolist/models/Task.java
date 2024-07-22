@@ -13,7 +13,7 @@ public class Task {
     @Column(name = "title")
     String title;
 
-    Task(){}
+    public Task(){}
 
     public Task(int id, String title) {
         this.id = id;
