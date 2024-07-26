@@ -1,38 +1,36 @@
 package ru.hxastur.todolist.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="Task")
 public class Task {
     @Id
     @Column(name="id")
-    int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @Column(name = "title")
-    String title;
+    private String title;
 
     public Task(){}
 
-    public Task(int id, String title) {
+    public Task(int id,String title) {
         this.id = id;
         this.title = title;
     }
 
-    int getId(){
+    public int getId(){
         return id;
     }
-    void setId(int id){
+    public void setId(int id){
         this.id = id;
     }
 
-    String getTitle(){
+    public String getTitle(){
         return title;
     }
-    void setTitle(String title){
+    public void setTitle(String title){
         this.title = title;
     }
 }
