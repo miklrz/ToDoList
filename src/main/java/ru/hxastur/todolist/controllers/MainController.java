@@ -11,15 +11,15 @@ public class MainController {
     @Autowired
     private TaskRepository taskRepository;
 
-    @GetMapping(path = "/")
-    String hello(){
+    @GetMapping(path = "/greeting")
+    public String hello(){
         return "hello!";
     }
 
     @PostMapping(path = "/add")
     public @ResponseBody String newTask(@RequestParam String title){
         Task task = new Task();
-        task.setTitle("new task 123");
+        task.setTitle(title);
         taskRepository.save(task);
         return "Saved";
     }
