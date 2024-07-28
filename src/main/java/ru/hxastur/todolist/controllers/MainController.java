@@ -2,11 +2,12 @@ package ru.hxastur.todolist.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.hxastur.todolist.models.Task;
 import ru.hxastur.todolist.repositories.TaskRepository;
 
-@RestController
+@Controller
 @RequestMapping("/tasks")
 public class MainController {
 
@@ -16,10 +17,15 @@ public class MainController {
         this.taskRepository = taskRepository;
     }
 
+//    @GetMapping()
+//    public @ResponseBody Iterable<Task> getAllTasks(){
+//        return taskRepository.findAll();
+//    }
+
     @GetMapping()
-    @ResponseBody
-    public String index(){
-        return "hello!";
+    public String indexTasks(Model model){
+        model.addAttribute("tasks", taskRepository.findAll());
+        return "index";
     }
 
     @GetMapping("/add")
@@ -29,11 +35,6 @@ public class MainController {
         task.setTitle(title);
         taskRepository.save(task);
         return "Saved!";
-    }
-
-    @GetMapping(path = "/all")
-    public @ResponseBody Iterable<Task> getAllTasks(){
-        return taskRepository.findAll();
     }
 
 }
