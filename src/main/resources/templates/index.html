@@ -7,6 +7,9 @@
 <body>
     <h1>Task list</h1>
     <hr>
-    <p th:each="task : ${tasks}" th:text="${task.getTitle()}"></p>
+    <div th:each="task : ${tasks}">
+        <p th:text="${task.getTitle()}"></p>
+
+    </div>
 </body>
 </html>
