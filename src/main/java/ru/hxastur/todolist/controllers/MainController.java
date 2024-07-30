@@ -42,8 +42,23 @@ public class MainController {
     }
 
     @PostMapping
-    public void saveTask(@RequestBody Task newTask){
-        taskRepository.save(newTask);
+    public void saveTask(@RequestBody Task task){
+//        Task task = new Task();
+//        task.setTitle(title);
+        taskRepository.save(task);
+    }
+
+    @PutMapping
+    public Task editTask(@RequestBody int id, @RequestBody Task newTask){
+//        return taskRepository.findById(id).map(task -> {
+//            task.setTitle(newTask.getTitle());
+//            return taskRepository.save(task);
+//        }).orElseGet(() -> {
+//            return taskRepository.save(newTask);
+//        });
+        Task task = taskRepository.findById(id).orElseGet(()->{return taskRepository.save(newTask);});
+        task.setTitle(newTask.getTitle());
+        return taskRepository.save(task);
     }
 
     @DeleteMapping("/{id}")
