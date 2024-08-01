@@ -6,12 +6,18 @@ import jakarta.persistence.*;
 @Table(name="Task")
 public class Task {
     @Id
-    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "title")
     private String title;
+
+    @Column(name="content")
+    private String content;
+
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable = false)
+    private Author author;
 
     public Task(){}
 
