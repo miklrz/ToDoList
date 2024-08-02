@@ -5,20 +5,18 @@ import ru.hxastur.todolist.exceptions.TaskNotFoundException;
 import ru.hxastur.todolist.models.Task;
 import ru.hxastur.todolist.repositories.TaskRepository;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/tasks")
-public class MainController {
+public class TaskController {
 
     private final TaskRepository taskRepository;
 
-    public MainController(TaskRepository taskRepository){
+    public TaskController(TaskRepository taskRepository){
         this.taskRepository = taskRepository;
     }
 
     @GetMapping()
-    public @ResponseBody Iterable<Task> getAllTasks(){
+    public Iterable<Task> getAllTasks(){
         return taskRepository.findAll();
     }
 
@@ -43,8 +41,6 @@ public class MainController {
 
     @PostMapping
     public void saveTask(@RequestBody Task task){
-//        Task task = new Task();
-//        task.setTitle(title);
         taskRepository.save(task);
     }
 

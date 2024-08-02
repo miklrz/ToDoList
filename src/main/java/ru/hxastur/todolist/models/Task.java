@@ -1,5 +1,6 @@
 package ru.hxastur.todolist.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,14 +17,17 @@ public class Task {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name="user_id", nullable = false)
+    @JoinColumn(name="user_id")
+    @JsonIgnore
     private Author author;
 
     public Task(){}
 
-    public Task(int id,String title) {
+    public Task(int id,String title, String content, Author author) {
         this.id = id;
         this.title = title;
+        this.content = content;
+        this.author = author;
     }
 
     public int getId(){
@@ -39,4 +43,21 @@ public class Task {
     public void setTitle(String title){
         this.title = title;
     }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
 }

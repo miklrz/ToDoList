@@ -14,4 +14,11 @@ public class ClassNotFoundAdvice {
     public String taskNotFoundHandler(TaskNotFoundException ex){
         return ex.getMessage();
     }
+
+    @ExceptionHandler(AuthorNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String authorNotFoundHandler(AuthorNotFoundException ex){
+        return ex.getMessage();
+    }
+
 }

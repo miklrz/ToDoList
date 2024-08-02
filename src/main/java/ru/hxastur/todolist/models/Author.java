@@ -3,6 +3,7 @@ package ru.hxastur.todolist.models;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 @Entity
 @Table(name="Author")
@@ -15,12 +16,13 @@ public class Author {
     String name;
 
     @OneToMany(mappedBy = "author")
-    private ArrayList<Task> taskList;
+    Set<Task> taskList;
 
     public Author() {}
-    public Author(int id, String name){
+    public Author(int id, String name, Set<Task> taskList){
         this.id = id;
         this.name = name;
+        this.taskList = taskList;
     }
 
     public int getId() {
@@ -38,4 +40,13 @@ public class Author {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Set<Task> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(Set<Task> taskList) {
+        this.taskList = taskList;
+    }
+
 }
