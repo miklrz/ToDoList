@@ -30,16 +30,16 @@ public class AuthorController {
         authorRepository.save(author);
     }
 
-    @PutMapping
-    public Author editAuthor(@RequestBody int id, @RequestBody Author newAuthor){
+    @PutMapping("/{id}")
+    public Author editAuthor(@RequestBody Author newAuthor, @PathVariable int id){
         Author author = authorRepository.findById(id).orElseGet(()->{return authorRepository.save(newAuthor);});
         author.setName(newAuthor.getName());
         author.setTaskList(newAuthor.getTaskList());
         return authorRepository.save(author);
     }
 
-    @DeleteMapping
-    public void deleteAuthor(@RequestBody int id){
+    @DeleteMapping("/{id}")
+    public void deleteAuthor(@PathVariable int id){
         authorRepository.deleteById(id);
     }
 }

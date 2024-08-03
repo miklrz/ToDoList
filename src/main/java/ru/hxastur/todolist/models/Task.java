@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +26,12 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name="user_id")
-//    @JsonIgnore
+    @JsonIgnore
     private Author author;
+
+    public Task(String title, String content, Author author) {
+        this.title = title;
+        this.content = content;
+        this.author = author;
+    }
 }
