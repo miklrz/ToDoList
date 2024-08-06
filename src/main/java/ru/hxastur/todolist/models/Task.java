@@ -2,6 +2,8 @@ package ru.hxastur.todolist.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,13 +21,17 @@ public class Task {
     private int id;
 
     @Column(name = "title")
+    @Size(min = 1, max = 20, message = "title should be grater than 1 and less than 20 symbols")
+    @NotNull(message="title should not be empty")
     private String title;
 
     @Column(name="content")
+    @Size(max = 100, message="content should be shorter than 100 symbols")
+    @NotNull(message="content should not be empty")
     private String content;
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id", nullable = false)
     @JsonIgnore
     private Author author;
 

@@ -1,6 +1,7 @@
 package ru.hxastur.todolist.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class Author {
     int id;
 
     @Column(name="name")
+    @Size(min=2, max = 20, message="name should be greater than 2 and less than 20")
     String name;
 
     @OneToMany(mappedBy = "author")
