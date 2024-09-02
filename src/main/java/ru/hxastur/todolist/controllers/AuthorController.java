@@ -1,45 +1,41 @@
 package ru.hxastur.todolist.controllers;
 
 import org.springframework.web.bind.annotation.*;
-import ru.hxastur.todolist.exceptions.AuthorNotFoundException;
 import ru.hxastur.todolist.models.Author;
-import ru.hxastur.todolist.repositories.AuthorRepository;
+import ru.hxastur.todolist.service.AuthorService;
 
 @RestController
-@RequestMapping("/authors")
+@RequestMapping("/api/authors")
 public class AuthorController {
 
-    private final AuthorRepository authorRepository;
+    private final AuthorService authorService;
 
-    public AuthorController(AuthorRepository authorRepository){
-        this.authorRepository = authorRepository;
+    public AuthorController(AuthorService authorService){
+        this.authorService = authorService;
     }
 
     @GetMapping()
-    public Iterable<Author> getAllAuthor(){
-        return authorRepository.findAll();
+    public Iterable<Author> getAllAuthors(){
+        return authorService.getAllAuthors();
     }
 
     @GetMapping("/{id}")
     public Author getAuthor(@PathVariable int id){
-        return authorRepository.findById(id).orElseThrow(()->new AuthorNotFoundException(id));
+        return authorService.getAuthor(id);
     }
 
     @PostMapping()
     public void saveAuthor(@RequestBody Author author){
-        authorRepository.save(author);
+        authorService.saveAuthor(author);
     }
 
     @PutMapping("/{id}")
     public Author editAuthor(@RequestBody Author newAuthor, @PathVariable int id){
-        Author author = authorRepository.findById(id).orElseGet(()->{return authorRepository.save(newAuthor);});
-        author.setName(newAuthor.getName());
-        author.setTaskList(newAuthor.getTaskList());
-        return authorRepository.save(author);
+        return authorService.editAuthor(newAuthor, id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteAuthor(@PathVariable int id){
-        authorRepository.deleteById(id);
+        authorService.deleteAuthor(id);
     }
 }
