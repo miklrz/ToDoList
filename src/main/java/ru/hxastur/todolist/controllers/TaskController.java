@@ -19,55 +19,38 @@ import ru.hxastur.todolist.service.TaskService;
 
 @Controller
 public class TaskController {
-    private TaskService taskService;
+    private final TaskService taskService;
 
     public TaskController(TaskService taskService){
         this.taskService = taskService;
     }
 
     @GetMapping("/tasks")
-    public String getAuthorTasks(@PathVariable int authorId, Model model){
-//        Author author =  authorRepository.findById(authorId).orElseThrow(()->new AuthorNotFoundException(authorId));
-//        return author.getTaskList();
-        model.addAttribute("tasks", taskService.getAuthorTasks(id))
+    public String getAuthorTasks(@RequestBody int authorId, Model model){
+        model.addAttribute("taskList", taskService.getAuthorTasks(authorId));
         return "tasks";
     }
 
-    @GetMapping("/authors/{authorId}/tasks/{id}")
-    public Task getTask(@PathVariable int id){
-        return taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException(id));
+    @GetMapping("/tasks/{taskId}")
+    public String getTask(@PathVariable int taskId, Model model){
+        model.addAttribute("task", taskService.getTask(taskId));
+        return "task";
     }
 
-    @PostMapping("/authors/{authorId}/tasks")
-    public ResponseEntity<String> saveTask(@Valid @RequestBody Task newTask, @PathVariable int authorId){
-        Author author = authorRepository.findById(authorId).orElseThrow(() -> new AuthorNotFoundException(authorId));
-        Task task = new Task(newTask.getTitle(),newTask.getContent(),author);
-        author.getTaskList().add(task);
-        try {
-            taskRepository.save(task);
-        }
-        catch(ValidationException ex){
-            return ResponseEntity.badRequest().body(ex.getMessage());
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    @PostMapping("/tasks")
+    public String saveTask(@Valid @RequestBody Task newTask, @RequestBody int authorId){
+        taskService.saveTask(newTask,authorId);
+        return "redirect:/tasks";
     }
 
-
-    @PutMapping("/authors/{authorId}/tasks/{id}")
-    public ResponseEntity<String> editTask(@Valid @RequestBody Task newTask, @PathVariable int id){
-        Task task = taskRepository.findById(id).orElseGet(()->{return taskRepository.save(newTask);});
-        task.setTitle(newTask.getTitle());
-        try{
-            taskRepository.save(task);
-        }
-        catch(ValidationException ex){
-            return ResponseEntity.badRequest().body(ex.getMessage());
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    @PutMapping("/tasks/{taskId}")
+    public String editTask(@Valid @RequestBody Task newTask, @PathVariable int taskId){
+        taskService.editTask(newTask,taskId);
+        return "redirect:/tasks";
     }
 
-    @DeleteMapping("/authors/{authorId}/tasks/{id}")
-    public void deleteTask(@PathVariable int id){
-        taskRepository.deleteById(id);
+    @DeleteMapping("/tasks/{taskId}")
+    public void deleteTask(@PathVariable int taskId){
+        taskService.deleteTask(taskId);
     }
 }
