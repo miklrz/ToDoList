@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,38 +19,38 @@ import ru.hxastur.todolist.repositories.TaskRepository;
 import ru.hxastur.todolist.service.TaskService;
 
 @Controller
-public class TaskController {
+public class UserController {
     private final TaskService taskService;
 
-    public TaskController(TaskService taskService){
+    public UserController(TaskService taskService){
         this.taskService = taskService;
     }
 
-    @GetMapping("/tasks")
-    public String getAuthorTasks(@RequestBody int authorId, Model model){
+    @GetMapping("authors/{authorId}/tasks")
+    public String getAuthorTasks(@PathVariable int authorId,Model model){
         model.addAttribute("taskList", taskService.getAuthorTasks(authorId));
         return "tasks";
     }
 
-    @GetMapping("/tasks/{taskId}")
+    @GetMapping("authors/{authorId}/tasks/{taskId}")
     public String getTask(@PathVariable int taskId, Model model){
         model.addAttribute("task", taskService.getTask(taskId));
         return "task";
     }
 
-    @PostMapping("/tasks")
-    public String saveTask(@Valid @RequestBody Task newTask, @RequestBody int authorId){
+    @PostMapping("authors/{authorId}/tasks")
+    public String saveTask(@Valid @RequestBody Task newTask, Authentication authentication, @PathVariable int authorId){
         taskService.saveTask(newTask,authorId);
         return "redirect:/tasks";
     }
 
-    @PutMapping("/tasks/{taskId}")
+    @PutMapping("authors/{authorId}/tasks/{taskId}")
     public String editTask(@Valid @RequestBody Task newTask, @PathVariable int taskId){
         taskService.editTask(newTask,taskId);
         return "redirect:/tasks";
     }
 
-    @DeleteMapping("/tasks/{taskId}")
+    @DeleteMapping("authors/{authorId}/tasks/{taskId}")
     public void deleteTask(@PathVariable int taskId){
         taskService.deleteTask(taskId);
     }
