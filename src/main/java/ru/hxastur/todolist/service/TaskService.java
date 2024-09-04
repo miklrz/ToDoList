@@ -17,7 +17,7 @@ import java.util.Set;
 @Service
 public class TaskService {
     TaskRepository taskRepository;
-    AuthorRepository authorRepository
+    AuthorRepository authorRepository;
 
     public TaskService(TaskRepository taskRepository, AuthorRepository authorRepository){
         this.taskRepository = taskRepository;
