@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Task</title>
+</head>
+<body>
+    <h1 th:text="${task.getTitle()}">task title</h1>
+    <p th:text="'content: ' + ${task.getContent()}">task content</p>
+    <p th:text="'id: ' + ${task.getId()}">task id</p>
+    <a th:href="@{/authors/{authorId}/tasks(authorId=${authorId})}">back link</a>
+</body>
+</html>
