@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New task</title>
+</head>
+<body>
+    <form th:method="POST" th:action="@{/authors/{authorId}/tasks (authorId=${authorId})}" th:object="${task}">
+        <label for="title">Title: </label>
+        <input type="text" th:field="*{title}" id="title"><br>
+        <label for="content">Content: </label>
+        <input type="text" th:field="*{content}" id="content"><br>
+        <input type="submit" value="Send!">
+    </form>
+</body>
+</html>
