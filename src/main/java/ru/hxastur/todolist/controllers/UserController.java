@@ -22,7 +22,7 @@ public class UserController {
     @GetMapping("authors/{authorId}/tasks")
     public String getAuthorTasks(@PathVariable int authorId,Model model){
         model.addAttribute("taskList", taskService.getAuthorTasks(authorId));
-        model.addAttribute("authorId", authorId);
+        model.addAttribute("author", authorId);
         return "tasks/index";
     }
 
@@ -39,26 +39,28 @@ public class UserController {
         return "tasks/new";
     }
 
-    @GetMapping("/authors/{authorId}/tasks/edit")
-    public String editTaskPage(@PathVariable int authorId, Model model, @ModelAttribute("task") Task task){
+    @GetMapping("/authors/{authorId}/tasks/{taskId}/edit")
+    public String editTaskPage(@PathVariable int authorId, Model model, @PathVariable int taskId){
         model.addAttribute("authorId", authorId);
+        model.addAttribute("task", taskService.getTask(taskId));
         return "tasks/edit";
     }
 
     @PostMapping("authors/{authorId}/tasks")
-    public String saveTask(@RequestBody Task task, @PathVariable int authorId){
+    public String saveTask(@ModelAttribute("task") Task task, @PathVariable int authorId){
         taskService.saveTask(task,authorId);
-        return "redirect:/tasks";
+        return "redirect:/authors/{authorId}/tasks";
     }
 
     @PutMapping("authors/{authorId}/tasks/{taskId}")
-    public String editTask(@Valid @RequestBody Task newTask, @PathVariable int taskId){
+    public String editTask(@ModelAttribute("task") Task newTask, @PathVariable int taskId){
         taskService.editTask(newTask,taskId);
-        return "redirect:/tasks";
+        return "redirect:/authors/{authorId}/tasks";
     }
 
     @DeleteMapping("authors/{authorId}/tasks/{taskId}")
-    public void deleteTask(@PathVariable int taskId){
+    public String deleteTask(@PathVariable int taskId){
         taskService.deleteTask(taskId);
+        return "redirect:/authors/{authorId}/tasks";
     }
 }

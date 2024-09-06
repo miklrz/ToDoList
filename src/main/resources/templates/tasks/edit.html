@@ -5,6 +5,13 @@
     <title>Edit task</title>
 </head>
 <body>
-
+    <form th:method="post" th:action="@{/authors/{authorId}/tasks/{taskId} (authorId=${authorId}, taskId=${task.getId()})}" th:object="${task}">
+        <input type="hidden" name="_method" value="PUT">
+        <label for="title">Title: </label>
+        <input type="text" th:field="*{title}" id="title"><br>
+        <label for="content">Content: </label>
+        <input type="text" th:field="*{content}" id="content"><br>
+        <input type="submit" value="Send!">
+</form>
 </body>
 </html>
