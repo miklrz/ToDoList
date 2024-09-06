@@ -40,4 +40,14 @@ public class Task {
         this.content = content;
         this.author = author;
     }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", author=" + author +
+                '}';
+    }
 }

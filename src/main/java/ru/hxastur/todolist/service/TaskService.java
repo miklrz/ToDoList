@@ -48,8 +48,11 @@ public class TaskService {
     }
 
     public void editTask(Task newTask, int taskId){
-        Task task = taskRepository.findById(taskId).orElseGet(()->{return taskRepository.save(newTask);});
+        Task task = taskRepository.findById(taskId).orElseGet(()->{
+            return taskRepository.save(newTask); // ошибка?
+        });
         task.setTitle(newTask.getTitle());
+        task.setContent(newTask.getContent());
         taskRepository.save(task);
 //        try{
 //            taskRepository.save(task);
