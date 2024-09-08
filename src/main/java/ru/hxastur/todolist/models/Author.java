@@ -23,6 +23,9 @@ public class Author {
     @Size(min=2, max = 20, message="name should be greater than 2 and less than 20")
     String name;
 
+    @Column(name="password")
+    private String password;
+
     @OneToMany(mappedBy = "author")
     Set<Task> taskList = new HashSet<>();
 }
