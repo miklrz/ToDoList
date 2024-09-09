@@ -28,4 +28,14 @@ public class Author {
 
     @OneToMany(mappedBy = "author")
     Set<Task> taskList = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", taskList=" + taskList +
+                '}';
+    }
 }
