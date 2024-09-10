@@ -1,5 +1,6 @@
 package ru.hxastur.todolist.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,14 +14,16 @@ import ru.hxastur.todolist.service.MyDatabaseAuthorDetailsService;
 @EnableWebSecurity
 public class SecurityConfig {
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/api/**","/", "/register").permitAll()
+                        .requestMatchers("/api/**", "/", "/register").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
+                        .usernameParameter("name")
+                        .defaultSuccessUrl("/home")
                         .permitAll()
                 )
                 .logout((logout) -> logout.permitAll());
@@ -28,13 +31,13 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public UserDetailsService authorDetailsService(){
-        return new MyDatabaseAuthorDetailsService();
-    }
+//    @Bean
+//    public UserDetailsService myDatabaseAuthorDetailsService() {
+//        return new MyDatabaseAuthorDetailsService();
+//    }
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
