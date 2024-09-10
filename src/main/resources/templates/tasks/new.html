@@ -5,7 +5,7 @@
     <title>New task</title>
 </head>
 <body>
-    <form th:method="POST" th:action="@{/authors/{authorId}/tasks (authorId=${authorId})}" th:object="${task}">
+    <form th:method="POST" th:action="@{/tasks}" th:object="${task}">
         <label for="title">Title: </label>
         <input type="text" th:field="*{title}" id="title"><br>
         <p th:if="${#fields.hasErrors()}" th:errors="*{title}">title error</p>

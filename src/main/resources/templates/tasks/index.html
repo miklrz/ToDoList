@@ -8,12 +8,14 @@
 <h1>Task list</h1>
     <div th:each="task : ${taskList}">
         <hr>
-        <a th:href="@{/authors/{authorId}/tasks/{id}(id=${task.getId()}, authorId=${authorId})}">
+        <a th:href="@{/tasks/{id}(id=${task.getId()})}">
             <h2 th:text="${task.getTitle()}">task title</h2>
         </a>
         <p th:text="'id: ' + ${task.getId()}">task id</p>
     </div>
     <hr>
-    <a th:href="@{/authors/{authorId}/tasks/new(authorId=${authorId})}">New task</a>
+    <a th:href="@{/tasks/new}">New task</a>
+    <hr>
+    <a th:href="@{/home}">Back to home</a>
 </body>
 </html>

@@ -8,12 +8,12 @@
     <h1 th:text="${task.getTitle()}">task title</h1>
     <p th:text="'content: ' + ${task.getContent()}">task content</p>
     <p th:text="'id: ' + ${task.getId()}">task id</p>
-    <a th:href="@{/authors/{authorId}/tasks/{taskId}/edit(authorId=${authorId}, taskId=${task.getId()})}">Edit task</a><br>
-    <form th:method="post" th:action="@{/authors/{authorId}/tasks/{taskId}(authorId=${authorId}, taskId=${task.getId()})}" th:object="${task}">
+    <a th:href="@{/tasks/{taskId}/edit(taskId=${task.getId()})}">Edit task</a><br>
+    <form th:method="post" th:action="@{/tasks/{taskId}(taskId=${task.getId()})}" th:object="${task}">
         <input type="hidden" name="_method" value="delete">
         <input type="submit" value="Delete task">
     </form>
     <hr>
-    <a th:href="@{/authors/{authorId}/tasks(authorId=${authorId})}">back link</a>
+    <a th:href="@{/tasks}">back link</a>
 </body>
 </html>

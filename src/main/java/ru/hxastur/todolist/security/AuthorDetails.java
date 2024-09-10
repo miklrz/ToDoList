@@ -48,4 +48,8 @@ public class AuthorDetails implements UserDetails {
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
     }
+
+    public Author getAuthor(){
+        return this.author;
+    }
 }

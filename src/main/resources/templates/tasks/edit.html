@@ -5,7 +5,7 @@
     <title>Edit task</title>
 </head>
 <body>
-    <form th:method="post" th:action="@{/authors/{authorId}/tasks/{taskId} (authorId=${authorId}, taskId=${taskId})}" th:object="${task}">
+    <form th:method="post" th:action="@{/tasks/{taskId} (taskId=${taskId})}" th:object="${task}">
         <input type="hidden" name="_method" value="PUT">
 
         <label for="title">Title: </label>
