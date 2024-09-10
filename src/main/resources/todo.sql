@@ -10,11 +10,3 @@ create table Task(
     user_id int,
     constraint fk_author foreign key(user_id) references Author(id)
 );
-
-
-INSERT INTO Author (name,password) VALUES ('first author', 'password1');
-INSERT INTO Author (name,password) VALUES ('second author', 'password2');
-INSERT INTO Task (title,content,user_id) VALUES('task1', 'task for author 1',1);
-INSERT INTO Task (title,content,user_id) VALUES('task2', 'task for author 1',1);
-INSERT INTO Task (title,content,user_id) VALUES('task1', 'task for author 2',2);
-INSERT INTO Task (title,content,user_id) VALUES('task2', 'task for author 2',2);
