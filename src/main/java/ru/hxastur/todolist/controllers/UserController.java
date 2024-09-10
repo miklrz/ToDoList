@@ -75,7 +75,7 @@ public class UserController {
         return "redirect:/tasks";
     }
 
-    @DeleteMapping("authors/{authorId}/tasks/{taskId}")
+    @DeleteMapping("/{taskId}")
     public String deleteTask(@PathVariable int taskId){
         taskService.deleteTask(taskId);
         return "redirect:/tasks";

@@ -10,7 +10,7 @@
     <p th:text="'id: ' + ${task.getId()}">task id</p>
     <a th:href="@{/tasks/{taskId}/edit(taskId=${task.getId()})}">Edit task</a><br>
     <form th:method="post" th:action="@{/tasks/{taskId}(taskId=${task.getId()})}" th:object="${task}">
-        <input type="hidden" name="_method" value="delete">
+        <input type="hidden" name="_method" value="DELETE">
         <input type="submit" value="Delete task">
     </form>
     <hr>
