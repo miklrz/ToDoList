@@ -1,6 +1,8 @@
 package ru.hxastur.todolist.controllers;
 
 import jakarta.validation.Valid;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,10 @@ public class UserController {
     @GetMapping("/{taskId}")
     public String getTask(@PathVariable int taskId, Model model,
                           @AuthenticationPrincipal AuthorDetails authorDetails){
+        Task task = taskService.getTask(taskId);
+        if(task.getAuthor().getId() != authorDetails.getAuthor().getId()){
+            throw new AccessDeniedException("You do not have permission to view this task");
+        }
         model.addAttribute("task", taskService.getTask(taskId));
         model.addAttribute("authorId", authorDetails.getAuthor().getId());
         return "tasks/task";
