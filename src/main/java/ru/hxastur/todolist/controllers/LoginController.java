@@ -20,17 +20,17 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginPage(){
-        return "login";
+        return "login/login";
     }
 
     @GetMapping("/home")
     public String homePage(){
-        return "home";
+        return "login/home";
     }
 
     @GetMapping("/register")
     public String registrationPage(@ModelAttribute("author") Author author){
-        return "register";
+        return "login/register";
     }
 
     @PostMapping("/register")
@@ -43,6 +43,6 @@ public class LoginController {
 
     @GetMapping("/")
     public String defaultPage(){
-        return "defaultPage";
+        return "login/defaultPage";
     }
 }
