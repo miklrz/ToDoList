@@ -2,7 +2,7 @@
 
 I made this project with Spring Boot, PostgreSQL, Spring Data JPA, Spring Security, Thymeleaf.
 
-It consists of Rest Api and user's intrface.
+It consists of Rest Api and user's interface.
 
 ----
 
