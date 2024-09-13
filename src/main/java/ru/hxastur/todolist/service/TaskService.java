@@ -38,13 +38,6 @@ public class TaskService {
         Task task = new Task(newTask.getTitle(),newTask.getContent(),author);
         author.getTaskList().add(task);
         taskRepository.save(task);
-//        try {
-//            taskRepository.save(task);
-//        }
-//        catch(ValidationException ex){
-//            return ResponseEntity.badRequest().body(ex.getMessage());
-//        }
-//        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     public void editTask(Task newTask, int taskId){
@@ -54,13 +47,6 @@ public class TaskService {
         task.setTitle(newTask.getTitle());
         task.setContent(newTask.getContent());
         taskRepository.save(task);
-//        try{
-//            taskRepository.save(task);
-//        }
-//        catch(ValidationException ex){
-//            return ResponseEntity.badRequest().body(ex.getMessage());
-//        }
-//        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     public void deleteTask(int taskId){

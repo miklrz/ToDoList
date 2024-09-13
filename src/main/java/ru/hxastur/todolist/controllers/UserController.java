@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.hxastur.todolist.exceptions.TaskAccessPermissionDenied;
 import ru.hxastur.todolist.models.Task;
 import ru.hxastur.todolist.security.AuthorDetails;
 import ru.hxastur.todolist.service.TaskService;
@@ -34,7 +35,7 @@ public class UserController {
                           @AuthenticationPrincipal AuthorDetails authorDetails){
         Task task = taskService.getTask(taskId);
         if(task.getAuthor().getId() != authorDetails.getAuthor().getId()){
-            throw new AccessDeniedException("You do not have permission to view this task");
+            throw new TaskAccessPermissionDenied(taskId);
         }
         model.addAttribute("task", taskService.getTask(taskId));
         model.addAttribute("authorId", authorDetails.getAuthor().getId());

@@ -21,4 +21,8 @@ public class ClassNotFoundAdvice {
         return ex.getMessage();
     }
 
+    @ExceptionHandler(TaskAccessPermissionDenied.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String taskAccessPermissionDenied(TaskAccessPermissionDenied ex){return ex.getMessage();}
+
 }
