@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1 th:inline="text">Hello <span th:remove="tag" sec:authentication="name">thymeleaf</span>!</h1>
-    <a th:href="@{/tasks}">Your tasks</a><br>
+    <a th:href="@{/tasks}">Your tasks</a><br><br>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>
     </form>
