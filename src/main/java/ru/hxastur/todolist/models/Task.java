@@ -33,12 +33,12 @@ public class Task {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id", nullable = false)
     @JsonIgnore
-    private Author author;
+    private Author taskAuthor;
 
     public Task(String title, String content, Author author) {
         this.title = title;
         this.content = content;
-        this.author = author;
+        this.taskAuthor = author;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Task {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", author=" + author +
+                ", author=" + taskAuthor +
                 '}';
     }
 }

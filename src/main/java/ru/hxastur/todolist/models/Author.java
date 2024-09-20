@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,8 +27,11 @@ public class Author {
     @Column(name="password")
     private String password;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "taskAuthor")
     Set<Task> taskList = new HashSet<>();
+
+    @OneToMany(mappedBy = "authorityAuthor")
+    Set<Authority> authorities = new HashSet<>();
 
     @Override
     public String toString() {
@@ -35,6 +39,7 @@ public class Author {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", authorities='" + authorities + '\'' +
                 ", taskList=" + taskList +
                 '}';
     }
