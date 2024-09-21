@@ -18,13 +18,15 @@ public class Authority {
     @Column(name = "id")
     int id;
 
-    @Column(name="name")
-    private String name;
-
     @Column(name="authority")
     private String authority;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "name", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
     private Author authorityAuthor;
+
+    public Authority(String authority, Author authorityAuthor) {
+        this.authority = authority;
+        this.authorityAuthor = authorityAuthor;
+    }
 }

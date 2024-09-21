@@ -1,16 +1,21 @@
 package ru.hxastur.todolist.security;
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.hxastur.todolist.models.Author;
 
 import java.util.Collection;
 import java.util.List;
 
+@Getter
 public class AuthorDetails implements UserDetails {
     private final Author author;
+    private final Collection<? extends GrantedAuthority> authorities;
 
-    public AuthorDetails(Author author){
+    public AuthorDetails(Author author, Collection <? extends GrantedAuthority> authorities){
+        this.authorities = authorities;
         this.author = author;
     }
 
@@ -47,9 +52,5 @@ public class AuthorDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
-    }
-
-    public Author getAuthor(){
-        return this.author;
     }
 }

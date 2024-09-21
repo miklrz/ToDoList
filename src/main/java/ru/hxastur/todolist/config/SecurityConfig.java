@@ -17,7 +17,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/api/**", "/", "/register").permitAll()
+                        .requestMatchers("/", "/register").permitAll()
+                        .requestMatchers("/api/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
@@ -33,10 +34,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-//    @Bean
-//    public UserDetailsService myDatabaseAuthorDetailsService() {
-//        return new MyDatabaseAuthorDetailsService();
-//    }
+
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {

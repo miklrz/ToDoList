@@ -23,9 +23,9 @@ public class MyDatabaseAuthorDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Author author = authorRepository.findByName(username);
         if(author == null) throw new AuthorNotFoundException(username);
-//        List<SimpleGrantedAuthority> grantedAuthorityList = author.getAuthorities()
-//                .map(authority -> new SimpleGrantedAuthority(authority))
-//                .collect(Collectors.toList());
-        return new AuthorDetails(author);
+        List<SimpleGrantedAuthority> grantedAuthorityList = author.getAuthorities().stream()
+                .map(authority -> new SimpleGrantedAuthority(authority.getAuthority()))
+                .toList();
+        return new AuthorDetails(author,grantedAuthorityList);
     }
 }

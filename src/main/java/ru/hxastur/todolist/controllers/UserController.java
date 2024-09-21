@@ -34,7 +34,7 @@ public class UserController {
     public String getTask(@PathVariable int taskId, Model model,
                           @AuthenticationPrincipal AuthorDetails authorDetails){
         Task task = taskService.getTask(taskId);
-        if(task.getAuthor().getId() != authorDetails.getAuthor().getId()){
+        if(task.getTaskAuthor().getId() != authorDetails.getAuthor().getId()){
             throw new TaskAccessPermissionDenied(taskId);
         }
         model.addAttribute("task", taskService.getTask(taskId));
