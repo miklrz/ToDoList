@@ -16,4 +16,8 @@ create table Authorities
     user_id  int,
     authority varchar(50),
     foreign key (user_id) references Author(id)
-)
+);
+insert into author(name, password)
+values('admin', '$2a$10$EjF87obHuOauQA2FbjwX9er37/otglPbPPo6oT0UQ9V.Xzb5Xqcse');
+insert into authorities(user_id, authority)
+values (1,'ROLE_ADMIN');
