@@ -30,7 +30,7 @@ public class Author {
     @OneToMany(mappedBy = "taskAuthor")
     Set<Task> taskList = new HashSet<>();
 
-    @OneToMany(mappedBy = "authorityAuthor", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "authorityAuthor", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     Set<Authority> authorities;
 
     @Override

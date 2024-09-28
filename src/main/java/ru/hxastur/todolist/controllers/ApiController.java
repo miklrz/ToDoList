@@ -1,10 +1,14 @@
 package ru.hxastur.todolist.controllers;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ru.hxastur.todolist.models.Author;
+import ru.hxastur.todolist.models.Authority;
 import ru.hxastur.todolist.models.Task;
 import ru.hxastur.todolist.service.AuthorService;
 import ru.hxastur.todolist.service.TaskService;
+
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/authors")
@@ -12,10 +16,12 @@ public class ApiController {
 
     private final AuthorService authorService;
     private final TaskService taskService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public ApiController(AuthorService authorService, TaskService taskService){
+    public ApiController(AuthorService authorService, TaskService taskService, BCryptPasswordEncoder bCryptPasswordEncoder){
         this.authorService = authorService;
         this.taskService = taskService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @GetMapping()
@@ -30,11 +36,15 @@ public class ApiController {
 
     @PostMapping()
     public void saveAuthor(@RequestBody Author author){
+        String encodedPassword = bCryptPasswordEncoder.encode(author.getPassword());
+        author.setPassword(encodedPassword);
         authorService.saveAuthor(author);
     }
 
     @PutMapping("/{id}")
     public Author editAuthor(@RequestBody Author newAuthor, @PathVariable int id){
+        String encodedPassword = bCryptPasswordEncoder.encode(newAuthor.getPassword());
+        newAuthor.setPassword(encodedPassword);
         return authorService.editAuthor(newAuthor, id);
     }
 
