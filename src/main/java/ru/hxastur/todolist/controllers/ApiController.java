@@ -16,12 +16,10 @@ public class ApiController {
 
     private final AuthorService authorService;
     private final TaskService taskService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public ApiController(AuthorService authorService, TaskService taskService, BCryptPasswordEncoder bCryptPasswordEncoder){
+    public ApiController(AuthorService authorService, TaskService taskService){
         this.authorService = authorService;
         this.taskService = taskService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @GetMapping()
@@ -36,15 +34,11 @@ public class ApiController {
 
     @PostMapping()
     public void saveAuthor(@RequestBody Author author){
-        String encodedPassword = bCryptPasswordEncoder.encode(author.getPassword());
-        author.setPassword(encodedPassword);
         authorService.saveAuthor(author);
     }
 
     @PutMapping("/{id}")
     public Author editAuthor(@RequestBody Author newAuthor, @PathVariable int id){
-        String encodedPassword = bCryptPasswordEncoder.encode(newAuthor.getPassword());
-        newAuthor.setPassword(encodedPassword);
         return authorService.editAuthor(newAuthor, id);
     }
 
