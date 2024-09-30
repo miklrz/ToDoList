@@ -35,10 +35,14 @@ public class Task {
     @JsonIgnore
     private Author taskAuthor;
 
-    public Task(String title, String content, Author author) {
+    @Column(name="isDone")
+    private boolean isDone;
+
+    public Task(String title, String content, Author author, boolean isDone) {
         this.title = title;
         this.content = content;
         this.taskAuthor = author;
+        this.isDone = isDone;
     }
 
     @Override
@@ -47,7 +51,8 @@ public class Task {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", author=" + taskAuthor +
+                ", taskAuthor=" + taskAuthor +
+                ", isDone=" + isDone +
                 '}';
     }
 }

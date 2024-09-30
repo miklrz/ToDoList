@@ -35,7 +35,7 @@ public class TaskService {
 
     public void saveTask(Task newTask, int authorId){
         Author author = authorRepository.findById(authorId).orElseThrow(() -> new AuthorNotFoundException(authorId));
-        Task task = new Task(newTask.getTitle(),newTask.getContent(),author);
+        Task task = new Task(newTask.getTitle(),newTask.getContent(),author, newTask.isDone());
         author.getTaskList().add(task);
         taskRepository.save(task);
     }

@@ -11,7 +11,8 @@
         <a th:href="@{/tasks/{id}(id=${task.getId()})}">
             <h2 th:text="${task.getTitle()}">task title</h2>
         </a>
-        <p th:text="'id: ' + ${task.getId()}">task id</p>
+<!--        <p th:text="'id: ' + ${task.getId()}">task id</p>-->
+        <p th:if="${task.isDone()}">task is done</p>
     </div>
     <hr>
     <a th:href="@{/tasks/new}">New task</a>
